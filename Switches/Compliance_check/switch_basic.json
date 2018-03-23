@@ -1,0 +1,33 @@
+{
+"management": {
+	"sh run view full | inc aaa new":{"expected_output":"aaa new-model","error_message":"aaa is not set","num_of_lines":"1"},
+	"sh run view full | inc default local":{"expected_output":"aaa authentication login default local","error_message":"aaa authenticaion is not set properly","num_of_lines":"1"}
+	},
+"password":{
+        "sh run view full | i enable secret":{"expected_output":"enable secret [0-9] .*","error_message":"Secret password is not set","num_of_lines":"1"},
+        "sh run view full | inc service pass":{"expected_output":"service password-encryption","error_message":"Password encryption is not set","num_of_lines":"1"}
+        },
+"smmp":{
+	"sh run view full | inc snmp-server enable":{"expected_output":"snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart\r\nsnmp-server enable traps config\r\nsnmp-server enable traps cpu threshold\r\nsnmp-server enable traps envmon fan shutdown supply temperature status\r","error_message":"snmp trap is not set or mismatch","num_of_lines":"4"}
+	},
+"ssh":{
+	"sh run view full | inc cdp run":{"expected_output":"no cdp run","error_message":"cdp is set","num_of_lines":"1"},
+	"sh run view full | in no service dhcp":{"expected_output":"no service dhcp","error_message":"dhcp is set","num_of_lines":"1"},
+	"sh run view full | inc service tcp":{"expected_output":"service tcp-keepalives-in\r\nservice tcp-keepalives-out\r","error_message":"tcp keepalives are not set","num_of_lines":"2"},
+	"sh run view full | in no service pad":{"expected_output":"no service pad","error_message":"service pad is set","num_of_lines":"1"}
+	},
+"logging":{
+	"sh run view full | inc logging enable":{"expected_output":"logging enable","error_message":"Logging is not enable","num_of_lines":"1"},
+	"sh run view full | inc logging buffer":{"expected_output":"logging buffered 64000","error_message":"Logging buffer size is not set or mismatch","num_of_lines":"1"},
+	"sh run view full | inc logging console":{"expected_output":"logging console critical","error_message":"logging console critical","num_of_lines":"1"},
+	"sh run view full | i service time | debug":{"expected_output":"service timestamps debug datetime msec localtime show-timezone","error_message":"Timestamps for debug is not set","num_of_lines":"1"},
+	"sh run view full | inc logging source":{"expected_output":"logging source-interface Vlan.*","error_message":"Logging source interface is not set","num_of_lines":"1"}
+	},
+"loopback":{
+	"sh run view full | i ip radius":{"expected_output":"ip radius source-interface Vlan.*","error_message":"Radius server source interface is not set","num_of_lines":"1"},
+	"sh run view full | i ntp source":{"expected_output":"ntp source Vlan36","error_message":"ntp source interface is not set","num_of_lines":"1"}
+	},
+"routing":{
+	"sh run view full | i ip source":{"expected_output":"no ip source-route","error_message":"source ip datagram routing is set","num_of_lines":"1"}
+	}
+}

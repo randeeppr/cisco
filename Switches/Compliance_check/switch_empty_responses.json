@@ -1,0 +1,9 @@
+{
+"smmp":{
+	"sh run view full | inc community private":{"expected_output":"^$","error_message":"Private community string is set","num_of_lines":"1"},
+	"sh run view full | inc community public":{"expected_output":"^$","error_message":"Public community string is set","num_of_lines":"1"}
+	},
+"logging":{
+	"sh run view full | inc logging trap":{"expected_output":"^$","error_message":"Logging trap is not set or mismatch","num_of_lines":"1"}
+	}
+}

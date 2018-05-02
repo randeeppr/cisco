@@ -3,6 +3,8 @@
 import requests, urllib3, time, sys, getopt, os, subprocess, datetime, re, socket
 from xml.etree import ElementTree
 
+#Adding comment for kuttis
+
 # Icinga exit status
 STATUS_OK=0
 STATUS_WARNING=1

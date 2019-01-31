@@ -25,7 +25,7 @@ def usage():
 
 # Main function starts here
 def main(argv):
-  verbose = "False"
+  verbose = False
   # Getting commandline arguments
   try:
         opts, args = getopt.getopt(argv,"hH:u:p:V")
@@ -41,7 +41,7 @@ def main(argv):
         elif opt in ("-p", "--password"):
                 password = arg
         elif opt in ("-V", "--Verbose"):
-                verbose = "True"
+                verbose = True
 
   # Disable warnings
   urllib3.disable_warnings()
@@ -62,11 +62,11 @@ def main(argv):
       last_time = 0
     except Exception as e:
       print("Error! Couldnt get response from api")
-      if verbose == "True":
+      if verbose:
         print(e.message)
       sys.exit(STATUS_UNKNOWN)
   
-  if verbose == "True":
+  if verbose:
     print("Age of the file is {0} minutes.".format(last_time))
 
   # If the file exists and age of the file is greater than 12 hours, call the api again. 
@@ -74,14 +74,14 @@ def main(argv):
     # Getting device details from Cisco prime via API
     try:
       r = requests.get('https://prime.organization.com/webacs/api/v3/data/Devices?adminStatus=managed&.maxResults=1000&.full=true', auth=('{0}'.format(username), '{0}'.format(password)),verify=False)
-      if verbose == "True":
+      if verbose:
         print("File is stale. Updating the file.")
       f = open(file_path, 'w')
       f.write("{0}".format(r.text))
       f.close()
     except Exception as e:
       print("Error! Couldnt get response from api")
-      if verbose == "True":
+      if verbose:
         print(e.message)
       sys.exit(STATUS_UNKNOWN)
 
@@ -95,7 +95,7 @@ def main(argv):
     sys.exit(STATUS_OK)
   elif re.search("^asa",hostname,re.IGNORECASE) and (re.search("-a",hostname,re.IGNORECASE) or re.search("-b",hostname,re.IGNORECASE)):
     """This check is for ASA firewalls"""
-    if verbose == "True":
+    if verbose:
       print("This is an ASA host!")
     # Finding the ip address from the hostname to support ASA primary and secondary devices. 
     try:
